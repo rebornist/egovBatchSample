@@ -5,6 +5,7 @@ import kr.sshsys.egovBatchSample.sample.mapper.SampleMapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * @auther sshsys
  *
  */
-@Component
+@Configuration
 @StepScope
 public class SampleFileWriteItemReader<T> implements ItemReader<Sample> {
 

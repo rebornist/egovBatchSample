@@ -43,7 +43,8 @@ public class SampleFileWriteStepExecution {
      */
     @Bean
     @JobScope
-    public Step sampleFileWriteStep(SampleFileWriteItemReader<Sample> itemReader, SampleFileWriteItemWriter<Sample> itemWriter) {
+    public Step sampleFileWriteStep(SampleFileWriteItemReader<Sample> itemReader,
+                                    SampleFileWriteItemWriter<Sample> itemWriter) {
         return stepBuilderFactory.get("SampleReaderStep")
                 .<Sample, Sample>chunk(10)
                 .reader(itemReader)

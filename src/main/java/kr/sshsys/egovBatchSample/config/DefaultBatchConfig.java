@@ -1,6 +1,7 @@
 package kr.sshsys.egovBatchSample.config;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer;
@@ -43,16 +44,12 @@ public class DefaultBatchConfig extends DefaultBatchConfigurer {
      * Job 실행 메소드
      * @param job
      */
-    public void runJob(Job job) {
-        try {
-            JobParameters jobParameters = new JobParametersBuilder()
-                    .addDate("date", new Date())
-                    .addLong("JobId", System.currentTimeMillis())
-                    .toJobParameters();
-            createJobLauncher().run(job, jobParameters);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public JobExecution runJob(Job job) throws Exception {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addDate("date", new Date())
+                .addLong("jobId", System.currentTimeMillis())
+                .toJobParameters();
+        return createJobLauncher().run(job, jobParameters);
     }
 	
     /**

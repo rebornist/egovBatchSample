@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.sshsys.egovBatchSample.comm.log.mapper.ErrorLogMapper">
+
+    <insert id="save" parameterType="kr.sshsys.egovBatchSample.comm.log.dto.ErrorLogDto">
+        INSERT INTO ERROR_LOG
+        (
+            JOB_NAME,
+            STEP_NAME,
+            MESSAGE
+        )
+        VALUES
+        (
+            #{jobName},
+            #{stepName},
+            #{message}
+        )
+    </insert>
+
+</mapper>

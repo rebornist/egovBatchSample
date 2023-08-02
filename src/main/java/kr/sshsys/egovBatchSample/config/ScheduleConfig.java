@@ -1,6 +1,7 @@
 package kr.sshsys.egovBatchSample.config;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,9 +40,9 @@ public class ScheduleConfig {
      * runJob1
      * Job 실행 메소드
      */
-    @Scheduled(cron = "0 */2 * * * ?")
-    public void runJob1() {
-        defaultBatchConfig.runJob(samplePostJob);
-    }
+//    @Scheduled(cron = "0 */2 * * * ?")
+//    public void runJob1() throws Exception {
+//        defaultBatchConfig.runJob(samplePostJob);
+//    }
 
 }

@@ -1,5 +1,6 @@
 package kr.sshsys.egovBatchSample.sample.web;
 
+import kr.sshsys.egovBatchSample.comm.ex.CommBatchException;
 import kr.sshsys.egovBatchSample.config.DefaultBatchConfig;
 import org.springframework.batch.core.Job;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class SampleController {
     private Job samplePostJob;
 
     @GetMapping("/sample.do")
-    public String sample() {
+    public String sample() throws Exception {
 
-        defaultBatchConfig.runJob(samplePostJob);
-        return "mapper/sample";
+        throw new CommBatchException("first exception", "testJob", "testStep");
+
     }
 }

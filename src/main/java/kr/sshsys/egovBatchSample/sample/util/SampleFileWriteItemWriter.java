@@ -1,7 +1,7 @@
 package kr.sshsys.egovBatchSample.sample.util;
 
 
-import kr.sshsys.egovBatchSample.comm.util.ObjectAttributeHandler;
+import kr.sshsys.egovBatchSample.comm.util.ObjectHandler;
 import kr.sshsys.egovBatchSample.sample.entity.Sample;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ExecutionContext;
@@ -9,6 +9,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
@@ -24,12 +25,12 @@ import java.util.List;
  * @auther sshsys
  *
  */
-@Component
+@Configuration
 @StepScope
 public class SampleFileWriteItemWriter<T> implements ItemWriter<Sample> {
 
-    /** filepath */
-    private final String filepath = "C:/eGov/workspace/egovBatchSample/data/output_" + LocalDateTime.now().toString().replaceAll("[\\:\\-\\.]", "");
+    /* filepath */
+    private final String filepath = "C:/eGov/workspace/egovBatchSample2/data/output_" + LocalDateTime.now().toString().replaceAll("[\\:\\-\\.]", "");
 
     /**
      * ItemWriter 실제 동작 메소드
@@ -43,7 +44,7 @@ public class SampleFileWriteItemWriter<T> implements ItemWriter<Sample> {
         FlatFileItemWriter<Sample> writer = new FlatFileItemWriter<>();
 
         /* 데이터의 필드명을 추출 */
-        String[] fieldNames = ObjectAttributeHandler.getFieldNames(list.get(0));
+        String[] fieldNames = ObjectHandler.getFieldNames(list.get(0));
 
         /* 파일 경로 설정 */
         writer.setResource(new FileSystemResource(filepath + ".txt"));
