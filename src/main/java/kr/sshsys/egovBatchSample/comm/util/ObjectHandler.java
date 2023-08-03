@@ -46,7 +46,7 @@ public class ObjectHandler {
      * @param object
      * @return String[]
      */
-    public static String[] getFieldNames(Object object) {
+    public String[] getFieldNames(Object object) {
 
         /* 필드명을 담을 List 생성 */
         List<String> fieldNames = new ArrayList<>();

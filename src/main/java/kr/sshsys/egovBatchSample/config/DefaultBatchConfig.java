@@ -9,6 +9,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -32,13 +33,10 @@ public class DefaultBatchConfig extends DefaultBatchConfigurer {
     /** DataSource */
     private final DataSource dataSource;
 
-    /**
-     * 생성자
-     * @param dataSource
-     */
-    public DefaultBatchConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public DefaultBatchConfig(DataSource ds) {
+        this.dataSource = ds;
     }
+
 
     /**
      * Job 실행 메소드
@@ -58,7 +56,7 @@ public class DefaultBatchConfig extends DefaultBatchConfigurer {
      * @throws Exception
      */
     @Override
-    protected JobLauncher createJobLauncher() throws Exception {
+    public JobLauncher createJobLauncher() throws Exception {
         SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
         jobLauncher.setJobRepository(createJobRepository());
         jobLauncher.setTaskExecutor(new SimpleAsyncTaskExecutor());

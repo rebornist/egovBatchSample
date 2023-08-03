@@ -1,6 +1,6 @@
-package kr.sshsys.egovBatchSample.sample.mapper;
+package kr.sshsys.egovBatchSample.batch.sample.mapper;
 
-import kr.sshsys.egovBatchSample.sample.entity.Sample;
+import kr.sshsys.egovBatchSample.batch.sample.entity.Sample;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

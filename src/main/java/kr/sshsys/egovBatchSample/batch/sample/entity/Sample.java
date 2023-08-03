@@ -1,8 +1,8 @@
-package kr.sshsys.egovBatchSample.sample.entity;
+package kr.sshsys.egovBatchSample.batch.sample.entity;
 
 import lombok.Getter;
+import lombok.ToString;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
@@ -13,10 +13,9 @@ import javax.persistence.Id;
  * @auther sshsys
  */
 @Getter
-@Entity
+@ToString
 public class Sample {
 
-    @Id
     private Long id;
 
     private String instlPlceNm;

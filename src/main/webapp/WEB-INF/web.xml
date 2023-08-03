@@ -17,11 +17,7 @@
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
 
-  <!-- Spring  context configuration : src/main/resources -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:context/*.xml</param-value>
-  </context-param>
+
 
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

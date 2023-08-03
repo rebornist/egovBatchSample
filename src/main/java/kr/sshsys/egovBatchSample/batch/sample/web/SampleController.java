@@ -1,4 +1,4 @@
-package kr.sshsys.egovBatchSample.sample.web;
+package kr.sshsys.egovBatchSample.batch.sample.web;
 
 import kr.sshsys.egovBatchSample.comm.ex.CommBatchException;
 import kr.sshsys.egovBatchSample.config.DefaultBatchConfig;

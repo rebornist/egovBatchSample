@@ -1,4 +1,4 @@
-package kr.sshsys.egovBatchSample.comm.web.rest.response;
+package kr.sshsys.egovBatchSample.comm.web.response;
 
 import kr.sshsys.egovBatchSample.comm.ex.CommBatchException;
 import kr.sshsys.egovBatchSample.comm.util.ObjectHandler;
@@ -9,22 +9,22 @@ import org.springframework.http.HttpStatus;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RestResponse {
+public class RestResponseHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(RestResponse.class);
+    private final Logger logger = LoggerFactory.getLogger(RestResponseHandler.class);
 
     private final ObjectHandler bodyBuilder = new ObjectHandler();
 
     public void successByXml(HttpServletResponse response, Object data) {
 
         try {
-            RestResponseDto dto = new RestResponseDto<Object>(
+            RestResponseVO vo = new RestResponseVO<Object>(
                     HttpServletResponse.SC_OK,
                     "OK",
                     data
             );
 
-            String responseBody = bodyBuilder.toXml(dto);
+            String responseBody = bodyBuilder.toXml(vo);
 
             response.setContentType("application/xml");
             response.setCharacterEncoding("utf-8");
@@ -42,13 +42,13 @@ public class RestResponse {
 
         try {
 
-            RestResponseDto dto = new RestResponseDto<Object>(
+            RestResponseVO vo = new RestResponseVO<Object>(
                 HttpServletResponse.SC_OK,
                 "OK",
                 data
             );
 
-            String responseBody = bodyBuilder.toJson(dto);
+            String responseBody = bodyBuilder.toJson(vo);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
@@ -66,13 +66,13 @@ public class RestResponse {
 
         try {
 
-            RestResponseDto dto = new RestResponseDto<Object>(
+            RestResponseVO vo = new RestResponseVO<Object>(
                     httpStatus.value(),
                     message,
                     null
             );
 
-            String responseBody = bodyBuilder.toXml(dto);
+            String responseBody = bodyBuilder.toXml(vo);
 
             response.setContentType("application/xml");
             response.setCharacterEncoding("utf-8");
@@ -91,13 +91,13 @@ public class RestResponse {
 
         try {
 
-            RestResponseDto dto = new RestResponseDto<Object>(
+            RestResponseVO vo = new RestResponseVO<Object>(
                     httpStatus.value(),
                     message,
                     null
             );
 
-            String responseBody = bodyBuilder.toJson(dto);
+            String responseBody = bodyBuilder.toJson(vo);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");

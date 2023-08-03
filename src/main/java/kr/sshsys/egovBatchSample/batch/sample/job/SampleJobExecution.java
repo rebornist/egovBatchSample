@@ -1,4 +1,4 @@
-package kr.sshsys.egovBatchSample.sample.job;
+package kr.sshsys.egovBatchSample.batch.sample.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,6 +26,7 @@ public class SampleJobExecution {
 
     /**
      * 생성자
+     *
      * @param jobBuilderFactory
      */
     public SampleJobExecution(JobBuilderFactory jobBuilderFactory) {
@@ -35,14 +36,14 @@ public class SampleJobExecution {
     /**
      * samplePostJob
      * Job 설정을 담당하는 메소드
-     * @param sampleReaderStep
      * @return Job
      */
     @Bean
-    public Job samplePostJob(Step sampleReaderStep) {
+    public Job samplePostJob(Step samplePostStep) {
         return jobBuilderFactory.get("SamplePostJob")
                 .incrementer(new RunIdIncrementer())
-                .start(sampleReaderStep)
+                .start(samplePostStep)
+                .listener(new SampleJobExecutionListener())
                 .build();
     }
 

@@ -40,9 +40,9 @@ public class ScheduleConfig {
      * runJob1
      * Job 실행 메소드
      */
-//    @Scheduled(cron = "0 */2 * * * ?")
-//    public void runJob1() throws Exception {
-//        defaultBatchConfig.runJob(samplePostJob);
-//    }
+    @Scheduled(cron = "0 */60 * * * ?")
+    public void runJob1() throws Exception {
+        defaultBatchConfig.runJob(samplePostJob);
+    }
 
 }
