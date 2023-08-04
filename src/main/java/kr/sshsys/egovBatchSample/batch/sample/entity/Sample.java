@@ -3,8 +3,6 @@ package kr.sshsys.egovBatchSample.batch.sample.entity;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Id;
-
 /**
  * Sample Entity
  *

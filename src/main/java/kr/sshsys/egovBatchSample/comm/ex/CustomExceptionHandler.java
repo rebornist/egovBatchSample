@@ -32,7 +32,7 @@ public class CustomExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<RestResponseVO> defaultException(Exception e) {
+    public ResponseEntity<?> defaultException(Exception e) {
 
         logger.error("Default Exception: {}", e.getMessage());
 
@@ -46,7 +46,7 @@ public class CustomExceptionHandler {
     }
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<RestResponseVO> validationException(ValidationException e) {
+    public ResponseEntity<?> validationException(ValidationException e) {
 
         logger.error("Validation Exception: {}", e.getMessage());
 
@@ -76,12 +76,14 @@ public class CustomExceptionHandler {
 
         logger.error("Batch Exception: {}", e.getMessage());
 
+        ErrorLogVO errorLogVO = new ErrorLogVO().builder()
+                                                .jobName(e.getJobName())
+                                                .stepName(e.getStepName())
+                                                .message(e.getMessage())
+                                                .build();
+
         sqlSessionTemplate.getMapper(ErrorLogMapper.class)
-                            .save(new ErrorLogVO().builder()
-                                                    .jobName(e.getJobName())
-                                                    .stepName(e.getStepName())
-                                                    .message(e.getMessage())
-                                                    .build());
+                            .save(errorLogVO);
 
     }
 

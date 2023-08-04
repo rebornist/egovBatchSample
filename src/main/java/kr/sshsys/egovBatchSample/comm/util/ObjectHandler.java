@@ -43,7 +43,6 @@ public class ObjectHandler {
 
     /**
      * Object Key의 필드명을 가져오는 메소드
-     * @param object
      * @return String[]
      */
     public String[] getFieldNames(Object object) {

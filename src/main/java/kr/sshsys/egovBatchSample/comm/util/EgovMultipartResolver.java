@@ -68,61 +68,61 @@ public class EgovMultipartResolver extends CommonsMultipartResolver {
     protected MultipartParsingResult parseFileItems(List fileItems, String encoding) {
 
     //스프링 3.0변경으로 수정한 부분
-    MultiValueMap<String, MultipartFile> multipartFiles = new LinkedMultiValueMap<String, MultipartFile>();
-	Map<String, String[]> multipartParameters = new HashMap<String, String[]>();
+    MultiValueMap<String, MultipartFile> multipartFiles = new LinkedMultiValueMap<>();
+	Map<String, String[]> multipartParameters = new HashMap<>();
 
 	// Extract multipart files and multipart parameters.
-	for (Iterator<?> it = fileItems.iterator(); it.hasNext();) {
-	    FileItem fileItem = (FileItem) it.next();
+	for (Object item : fileItems) {
+		FileItem fileItem = (FileItem) item;
 
-	    if (fileItem.isFormField()) {
+		if (fileItem.isFormField()) {
 
-		String value = null;
-		if (encoding != null) {
-		    try {
-			value = fileItem.getString(encoding);
-		    } catch (UnsupportedEncodingException ex) {
-			if (logger.isWarnEnabled()) {
-			    logger.warn("Could not decode multipart item '" + fileItem.getFieldName() + "' with encoding '" + encoding
-				    + "': using platform default");
+			String value = null;
+			if (encoding != null) {
+				try {
+					value = fileItem.getString(encoding);
+				} catch (UnsupportedEncodingException ex) {
+					if (logger.isWarnEnabled()) {
+						logger.warn("Could not decode multipart item '" + fileItem.getFieldName() + "' with encoding '" + encoding
+								+ "': using platform default");
+					}
+					value = fileItem.getString();
+				}
+			} else {
+				value = fileItem.getString();
 			}
-			value = fileItem.getString();
-		    }
+			String[] curParam = multipartParameters.get(fileItem.getFieldName());
+			if (curParam == null) {
+				// simple form field
+				multipartParameters.put(fileItem.getFieldName(), new String[]{value});
+			} else {
+				// array of simple form fields
+				String[] newParam = StringUtils.addStringToArray(curParam, value);
+				multipartParameters.put(fileItem.getFieldName(), newParam);
+			}
 		} else {
-		    value = fileItem.getString();
+
+			if (fileItem.getSize() > 0) {
+				// multipart file field
+				CommonsMultipartFile file = new CommonsMultipartFile(fileItem);
+
+
+				//스프링 3.0 업그레이드 API변경으로인한 수정
+				List<MultipartFile> fileList = new ArrayList<>();
+				fileList.add(file);
+
+
+				if (multipartFiles.put(fileItem.getName(), fileList) != null) { // CHANGED!!
+					throw new MultipartException("Multiple files for field name [" + file.getName()
+							+ "] found - not supported by MultipartResolver");
+				}
+				if (logger.isDebugEnabled()) {
+					logger.debug("Found multipart file [" + file.getName() + "] of size " + file.getSize() + " bytes with original filename ["
+							+ file.getOriginalFilename() + "], stored " + file.getStorageDescription());
+				}
+			}
+
 		}
-		String[] curParam = multipartParameters.get(fileItem.getFieldName());
-		if (curParam == null) {
-		    // simple form field
-		    multipartParameters.put(fileItem.getFieldName(), new String[] { value });
-		} else {
-		    // array of simple form fields
-		    String[] newParam = StringUtils.addStringToArray(curParam, value);
-		    multipartParameters.put(fileItem.getFieldName(), newParam);
-		}
-	    } else {
-
-		if (fileItem.getSize() > 0) {
-		    // multipart file field
-		    CommonsMultipartFile file = new CommonsMultipartFile(fileItem);
-
-
-		    //스프링 3.0 업그레이드 API변경으로인한 수정
-		    List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-		    fileList.add(file);
-
-
-		    if (multipartFiles.put(fileItem.getName(), fileList) != null) { // CHANGED!!
-			throw new MultipartException("Multiple files for field name [" + file.getName()
-				+ "] found - not supported by MultipartResolver");
-		    }
-		    if (logger.isDebugEnabled()) {
-			logger.debug("Found multipart file [" + file.getName() + "] of size " + file.getSize() + " bytes with original filename ["
-				+ file.getOriginalFilename() + "], stored " + file.getStorageDescription());
-		    }
-		}
-
-	    }
 	}
 
 	return new MultipartParsingResult(multipartFiles, multipartParameters, null);

@@ -17,7 +17,7 @@ public class SampleController {
     private Job samplePostJob;
 
     @GetMapping("/sample.do")
-    public String sample() throws Exception {
+    public String sample() throws CommBatchException {
 
         throw new CommBatchException("first exception", "testJob", "testStep");
 

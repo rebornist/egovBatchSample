@@ -1,7 +1,5 @@
 package kr.sshsys.egovBatchSample.comm.ex;
 
-import org.springframework.stereotype.Component;
-
 public class CommRestException extends RuntimeException {
     public CommRestException() {
     }

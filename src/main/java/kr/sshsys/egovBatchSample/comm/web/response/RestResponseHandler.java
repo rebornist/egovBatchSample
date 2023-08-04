@@ -18,7 +18,7 @@ public class RestResponseHandler {
     public void successByXml(HttpServletResponse response, Object data) {
 
         try {
-            RestResponseVO vo = new RestResponseVO<Object>(
+            RestResponseVO<Object> vo = new RestResponseVO<>(
                     HttpServletResponse.SC_OK,
                     "OK",
                     data
@@ -42,10 +42,10 @@ public class RestResponseHandler {
 
         try {
 
-            RestResponseVO vo = new RestResponseVO<Object>(
-                HttpServletResponse.SC_OK,
-                "OK",
-                data
+            RestResponseVO<Object> vo = new RestResponseVO<>(
+                    HttpServletResponse.SC_OK,
+                    "OK",
+                    data
             );
 
             String responseBody = bodyBuilder.toJson(vo);
@@ -66,7 +66,7 @@ public class RestResponseHandler {
 
         try {
 
-            RestResponseVO vo = new RestResponseVO<Object>(
+            RestResponseVO<Object> vo = new RestResponseVO<>(
                     httpStatus.value(),
                     message,
                     null
@@ -91,7 +91,7 @@ public class RestResponseHandler {
 
         try {
 
-            RestResponseVO vo = new RestResponseVO<Object>(
+            RestResponseVO<Object> vo = new RestResponseVO<>(
                     httpStatus.value(),
                     message,
                     null
