@@ -49,8 +49,6 @@ public class SampleStepExecution {
                 .<Sample, Sample>chunk(10)
                 .reader(itemReader)
                 .writer(itemWriter)
-//                .faultTolerant()
-//                .skip(ItemStreamException.class)
                 .build();
     }
 }
