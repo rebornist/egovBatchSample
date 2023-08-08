@@ -7,6 +7,7 @@ import kr.sshsys.egovBatchSample.batch.sample.util.SamplePostItemWriter;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,17 +25,8 @@ import org.springframework.context.annotation.Configuration;
 public class SampleStepExecution {
 
     /** StepBuilderFactory */
-    private final StepBuilderFactory stepBuilderFactory;
-
-
-    /**
-     * 생성자
-     *
-     * @param stepBuilderFactory
-     */
-    public SampleStepExecution(StepBuilderFactory stepBuilderFactory) {
-        this.stepBuilderFactory = stepBuilderFactory;
-    }
+    @Autowired
+    private StepBuilderFactory stepBuilderFactory;
 
     /**
      * sampleFileWriteStep
@@ -51,4 +43,5 @@ public class SampleStepExecution {
                 .writer(itemWriter)
                 .build();
     }
+
 }
