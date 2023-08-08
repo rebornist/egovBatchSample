@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,20 +25,12 @@ import javax.sql.DataSource;
 public class MybatisConfig {
 
     /** ApplicationContext */
-    private final ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     /** DataSource */
-    private final DataSource dataSource;
-
-    /**
-     * 생성자
-     * @param applicationContext
-     * @param dataSource
-     */
-    public MybatisConfig(ApplicationContext applicationContext, DataSource dataSource) {
-        this.applicationContext = applicationContext;
-        this.dataSource = dataSource;
-    }
+    @Autowired
+    private DataSource dataSource;
 
     /**
      * SqlSessionFactory 생성 메소드

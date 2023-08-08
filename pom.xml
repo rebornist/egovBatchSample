@@ -119,8 +119,6 @@
       <version>1.2</version>
     </dependency>
 
-
-
     <!-- Persistence 추가 -->
     <dependency>
       <groupId>javax.persistence</groupId>
@@ -346,7 +344,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skipTests>false</skipTests>
-          <forkMode>once</forkMode>
+          <!-- <forkMode>once</forkMode> -->
           <reportFormat>xml</reportFormat>
           <excludes>
             <exclude>**/Abstract*.java</exclude>
