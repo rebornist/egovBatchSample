@@ -32,11 +32,10 @@ public class SampleJobExecution {
      * @return Job
      */
     @Bean
-    public Job samplePostJob(Step samplePostStep) {
-        return jobBuilderFactory.get("SamplePostJob")
+    public Job sampleJob(Step samplePostStep) {
+        return jobBuilderFactory.get("SampleJob")
                 .incrementer(new RunIdIncrementer())
                 .start(samplePostStep)
-                .listener(new SampleJobExecutionListener())
                 .build();
     }
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.sshsys.egovBatchSample.batch.sample.mapper.SampleMapper">
 
-    <resultMap id="sampleResultMap" type="kr.sshsys.egovBatchSample.batch.sample.entity.Sample">
+    <resultMap id="sampleResultMap" type="kr.sshsys.egovBatchSample.batch.sample.entity.SampleVO">
         <id property="id" column="ID"/>
         <result property="instlPlceNm" column="INSTL_PLCE_NM"/>
         <result property="instlPlceDtil" column="INSTL_PLCE_DTIL"/>

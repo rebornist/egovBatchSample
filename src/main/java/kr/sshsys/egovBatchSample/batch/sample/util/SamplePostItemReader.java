@@ -1,6 +1,6 @@
 package kr.sshsys.egovBatchSample.batch.sample.util;
 
-import kr.sshsys.egovBatchSample.batch.sample.entity.Sample;
+import kr.sshsys.egovBatchSample.batch.sample.entity.SampleVO;
 import kr.sshsys.egovBatchSample.batch.sample.mapper.SampleMapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -21,13 +21,13 @@ import java.util.List;
  */
 @Configuration
 @StepScope
-public class SamplePostItemReader<T> implements ItemReader<Sample> {
-
-    /** SqlSessionTemplate */
-    private final SqlSessionTemplate sqlSessionTemplate;
+public class SamplePostItemReader implements ItemReader<SampleVO> {
 
     /** idx */
     private int idx = 0;
+
+    /** list **/
+    private List<SampleVO> list;
 
     /**
      * 생성자
@@ -35,7 +35,8 @@ public class SamplePostItemReader<T> implements ItemReader<Sample> {
      * sql세션 템플릿
      */
     public SamplePostItemReader(SqlSessionTemplate sqlSessionTemplate) {
-        this.sqlSessionTemplate = sqlSessionTemplate;
+        /* SampleMapper를 통해 DB에서 데이터를 가져옴 */
+        this.list = sqlSessionTemplate.getMapper(SampleMapper.class).searchAll();
     }
 	
     /**
@@ -44,13 +45,11 @@ public class SamplePostItemReader<T> implements ItemReader<Sample> {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Sample read() {
-        /* SampleMapper를 통해 DB에서 데이터를 가져옴 */
-        List<Sample> list = sqlSessionTemplate.getMapper(SampleMapper.class).searchAll();
+    public SampleVO read() {
 
         /* 가져온 데이터를 하나씩 리턴 */
         if (idx < list.size()) {
-            Sample item = list.get(idx);
+            SampleVO item = list.get(idx);
             idx++;
             return item;
         }

@@ -1,7 +1,6 @@
 package kr.sshsys.egovBatchSample.batch.sample.step;
 
-
-import kr.sshsys.egovBatchSample.batch.sample.entity.Sample;
+import kr.sshsys.egovBatchSample.batch.sample.entity.SampleVO;
 import kr.sshsys.egovBatchSample.batch.sample.util.SamplePostItemReader;
 import kr.sshsys.egovBatchSample.batch.sample.util.SamplePostItemWriter;
 import org.springframework.batch.core.Step;
@@ -35,10 +34,10 @@ public class SampleStepExecution {
      */
     @Bean
     @JobScope
-    public Step samplePostStep(SamplePostItemReader<Sample> itemReader,
-                               SamplePostItemWriter<Sample> itemWriter) {
-        return stepBuilderFactory.get("SampleReaderStep")
-                .<Sample, Sample>chunk(10)
+    public Step samplePostStep(SamplePostItemReader itemReader,
+                               SamplePostItemWriter itemWriter) {
+        return stepBuilderFactory.get("SampleStep")
+                .<SampleVO, SampleVO>chunk(10)
                 .reader(itemReader)
                 .writer(itemWriter)
                 .build();

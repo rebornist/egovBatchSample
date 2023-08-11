@@ -1,8 +1,10 @@
 package kr.sshsys.egovBatchSample.batch.sample;
 
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.*;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,17 +24,24 @@ public class SampleJobTest {
     private JobRepository jobRepository;
 
     @Autowired
-    private Job samplePostJob;
+    private JobOperator jobOperator;
+
+    @Autowired
+    private Job sampleJob;
 
     @Test
-    public void samplePostJobTest() throws Exception {
+    public void sampleJobTest() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addDate("date", new Date())
                 .addLong("jobId", System.currentTimeMillis())
                 .toJobParameters();
-        JobExecution jobExecution = jobRepository.createJobExecution(samplePostJob.getName(), jobParameters);
-        samplePostJob.execute(jobExecution);
+        JobExecution jobExecution = jobRepository.createJobExecution(sampleJob.getName(), jobParameters);
+//        sampleJob.execute(jobExecution);
         jobExecution.setExitStatus(new ExitStatus(jobExecution.getExitStatus().getExitCode(), "Test Sample Job"));
+
+        jobOperator.start(sampleJob.getName(), jobParameters.toString());
+
+//        egovBatchRunner.start(sampleJob.getName(), egovBatchRunner.createUniqueJobParameters());
     }
 
 

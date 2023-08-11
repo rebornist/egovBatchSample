@@ -1,6 +1,6 @@
 package kr.sshsys.egovBatchSample.batch.sample.mapper;
 
-import kr.sshsys.egovBatchSample.batch.sample.entity.Sample;
+import kr.sshsys.egovBatchSample.batch.sample.entity.SampleVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface SampleMapper {
-    List<Sample> searchAll();
+    List<SampleVO> searchAll();
 }

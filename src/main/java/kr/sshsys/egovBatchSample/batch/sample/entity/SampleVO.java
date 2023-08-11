@@ -3,6 +3,8 @@ package kr.sshsys.egovBatchSample.batch.sample.entity;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * Sample Entity
  *
@@ -12,7 +14,9 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-public class Sample {
+public class SampleVO implements Serializable {
+
+    private static final long serialVersionUID = 4256446889040622647L;
 
     private Long id;
 
